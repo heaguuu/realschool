@@ -1,6 +1,6 @@
 /* GitHub Pages 전용. QR 영상은 브라우저에서 해석하고 GAS에는 문자열만 보냅니다. */
 // 같은 GAS 배포를 새 버전으로 갱신하면 이 URL은 그대로 사용합니다.
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxnThzmGKUNgbCbF4IfC4dbLPx1hrTqUdr06cpA-p3yMYO2gkyVc8HmlW6q-bWawuX/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzbu8fBRg0L1rUtdMj7F_GD2GbEF_gDVkgbzIFFeSfK4EVU1W8nE14R6-nj99lxExEm/exec';
 const $ = (id) => document.getElementById(id);
 const video = $('video');
 const canvas = $('canvas');
