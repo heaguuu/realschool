@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f3f8ff">
   <title>생활지도 관리 · QR 벌점 등록</title>
-  <link rel="stylesheet" href="./style.css?v=complete-1">
+  <link rel="stylesheet" href="./style.css?v=sheet-final-2">
   <script defer src="./jsQR.js?v=1.4.0"></script>
-  <script defer src="./app.js?v=complete-1"></script>
+  <script defer src="./app.js?v=sheet-final-2"></script>
 </head>
 <body>
   <div class="phone-app">
@@ -59,7 +59,8 @@
             <div><dt>반</dt><dd id="student-class">—</dd></div>
             <div><dt>번호</dt><dd id="student-number">—</dd></div>
           </dl>
-          <div class="student-id-line"><span>학생ID</span><strong id="student-id">—</strong></div>
+          <div class="student-id-line"><span>학년도</span><strong id="student-year">—</strong></div>
+          <div class="student-id-line"><span>QR식별값</span><strong id="student-qr">—</strong></div>
         </section>
         <fieldset id="criteria-fieldset">
           <legend>등록할 벌점 항목</legend>
@@ -72,19 +73,20 @@
           <div><span>등록 점수</span><strong><span id="selected-score">—</span>점</strong></div>
         </div>
         <p id="limits" class="help"></p>
-        <button id="submit" class="primary-button" type="button" disabled>승인대기로 저장</button>
+        <button id="submit" class="primary-button" type="button" disabled>확인 · 시트에 저장</button>
         <button id="rescan" class="secondary-button" type="button">다른 학생 QR 스캔</button>
-        <p class="help">요청은 승인대기로 저장됩니다.<br>현재 시트의 누계에는 상태가 ‘승인’인 기록만 반영됩니다.</p>
+        <p class="help">요청자ID: <strong id="requester-id">—</strong><br>승인상태·승인자ID·처리일시·비고는 비워서 저장합니다.</p>
       </section>
 
       <section id="done-panel" class="card result-card" aria-labelledby="done-title" hidden>
         <div class="result-check" aria-hidden="true">✓</div>
-        <h2 id="done-title">승인 요청을 저장했어요</h2>
-        <p>점수 부여 시트에 승인대기로 기록되었습니다.</p>
+        <h2 id="done-title">벌점 기록을 저장했어요</h2>
+        <p>학생 정보와 선택한 벌점이 점수 부여 시트에 기록되었습니다.</p>
         <dl class="receipt-details">
           <div><dt>학생</dt><dd id="saved-student">—</dd></div>
           <div><dt>벌점 항목</dt><dd id="saved-reason">—</dd></div>
           <div><dt>점수</dt><dd id="saved-score">—</dd></div>
+          <div><dt>요청자ID</dt><dd id="saved-requester">—</dd></div>
         </dl>
         <p id="receipt"></p>
         <button id="again" class="primary-button" type="button">다음 학생 QR 스캔</button>
@@ -92,7 +94,7 @@
       <p id="message" class="status-message" role="status" aria-live="polite" aria-atomic="true"></p>
       <noscript><p class="status-message">QR 인식과 학생 조회에는 JavaScript가 필요합니다. 브라우저에서 JavaScript를 허용해 주세요.</p></noscript>
     </main>
-    <footer class="app-footer"><p>카메라 영상은 저장하거나 전송하지 않습니다.</p><small>생활지도 관리 · 통합본 1</small></footer>
+    <footer class="app-footer"><p>카메라 영상은 저장하거나 전송하지 않습니다.</p><small>생활지도 관리 · 최종 표 2</small></footer>
   </div>
 </body>
 </html>
