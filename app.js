@@ -138,7 +138,9 @@ async function lookup(qr) {
     $('student-grade').textContent = scan.student.grade || '—';
     $('student-class').textContent = scan.student.classNo || '—';
     $('student-number').textContent = scan.student.number || '—';
-    $('student-id').textContent = scan.student.id;
+    $('student-year').textContent = scan.student.year;
+    $('student-qr').textContent = scan.student.qr;
+    $('requester-id').textContent = scan.requesterId;
     $('criteria').replaceChildren();
     for (const item of scan.criteria) {
       const label = document.createElement('label');
@@ -151,7 +153,7 @@ async function lookup(qr) {
         $('selected-reason').textContent = item.reason;
         $('selected-score').textContent = String(item.score);
         $('selection-summary').hidden = false;
-        $('submit').textContent = '승인대기로 저장';
+        $('submit').textContent = '확인 · 시트에 저장';
         $('submit').disabled = false;
       });
       const reason = document.createElement('span');
@@ -161,7 +163,9 @@ async function lookup(qr) {
       label.append(input, reason, score);
       $('criteria').append(label);
     }
-    $('limits').textContent = `이번 테스트 남은 등록: 전체 ${scan.remaining.total}건 / 이 학생 ${scan.remaining.student}건. QR 확인은 5분간 유효합니다.`;
+    $('limits').textContent = scan.limitsEnabled !== false && scan.remaining
+      ? `남은 등록: 전체 ${scan.remaining.total}건 / 이 학생 ${scan.remaining.student}건. QR 조회는 5분간 유효합니다.`
+      : '학생 정보를 확인한 뒤 벌점을 선택해 주세요. QR 조회는 5분간 유효합니다.';
     $('criteria-empty').hidden = scan.criteria.length > 0;
     $('submit').disabled = true;
     panel('student');
@@ -234,13 +238,14 @@ async function submit() {
   $('submit').disabled = true;
   $('rescan').disabled = true;
   document.querySelectorAll('input[name="criterion"]').forEach((input) => { input.disabled = true; });
-  message('승인 요청을 저장하고 있습니다…');
+  message('학생 정보와 선택한 벌점을 시트에 저장하고 있습니다…');
   try {
     const result = await api('submit', pending);
-    $('saved-student').textContent = `${scan.student.name} · ${scan.student.id}`;
+    $('saved-student').textContent = `${result.student.name} · ${result.student.grade}학년 ${result.student.classNo}반 ${result.student.number}번`;
     $('saved-reason').textContent = selectedCriterion.reason;
     $('saved-score').textContent = `${result.score ?? selectedCriterion.score}점`;
-    $('receipt').textContent = `${result.requestId} · ${result.status}`;
+    $('saved-requester').textContent = result.requesterId;
+    $('receipt').textContent = `점수 부여 ${result.row}행 · ${result.status}`;
     panel('done');
     scan = null; pending = null; message();
   } catch (error) {
@@ -258,7 +263,7 @@ function reset() {
   if (busy) return;
   scan = null; pending = null;
   selectedCriterion = null;
-  $('submit').textContent = '승인대기로 저장';
+  $('submit').textContent = '확인 · 시트에 저장';
   $('rescan').disabled = false;
   panel('scan'); message();
   void startCamera();
